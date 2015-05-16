@@ -10,7 +10,6 @@ module.exports = {
 	joinParty: function(res) {
 		var user_id = res.user_id,
 			auth_key = res.token;
-			console.log(res.list_id);
 		//set up request to get playlist from spotify
 		var _headers = {
 			'Authorization': 'Bearer ' + auth_key
@@ -23,15 +22,13 @@ module.exports = {
 		return request(options, function(err, res, body) {
 			if(!err) {
 				body = JSON.parse(body);
-				console.log(body);
-				/*var tracks = parseTracks(body.items);
+				var tracks = parseTracks(body.items);
 				for(var i = 0; i < tracks.length; i++){
 					console.log("Title: " + tracks.title);
 					console.log("Artist: " + tracks.artist);
 					console.log("Art: " + tracks.art);
 					console.log("URI: " + tracks.URI);
-				}*/
-				//TODO, get Title, artist, and URI
+				}
 			}else {
 				console.log(err);
 			}
