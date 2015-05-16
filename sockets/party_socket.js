@@ -68,7 +68,7 @@ module.exports = {
 }
 
 var parseTracks = function(tracks) {
-	var result[];
+	var result = [];
 	for(var i = 0; i < tracks.length; i++) {
 		result.push({
 			title: tracks[i].track.name,
