@@ -30,7 +30,7 @@ app.post('/userauth', function(req, res, next) {
 	console.log("AUTH KEY: " + auth_key);
 	//set up request to get playlist from spotify
 	var _headers = {
-		'Authentication': 'Bearer' + auth_key
+		'Authorization': 'Bearer ' + auth_key
 	};
 	var options = {
 		url: 'https://api.spotify.com/v1/users/'+ user_id +'/playlists',
