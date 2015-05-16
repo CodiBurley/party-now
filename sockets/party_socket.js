@@ -10,6 +10,8 @@ module.exports = {
 	joinParty: function(res) {
 		var user_id = res.user_id,
 			auth_key = res.token;
+			console.log(user_id);
+			console.log(auth_key);
 		//set up request to get playlist from spotify
 		var _headers = {
 			'Authorization': 'Bearer ' + auth_key
