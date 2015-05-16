@@ -70,6 +70,7 @@ module.exports = {
 var parseTracks = function(tracks) {
 	var result = [];
 	for(var i = 0; i < tracks.length; i++) {
+		console.log('track: ' + tracks[i]);
 		result.push({
 			title: tracks[i].track.name,
 			artist: tracks[i].track.artists[0].name,
