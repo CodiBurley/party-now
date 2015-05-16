@@ -29,7 +29,7 @@ module.exports = {
 		console.log("playlist id: " + res.list_id);
 		console.log("token: " +  res.token);
 		console.log("user id: " + res.user_id);
-	}
+	},
 
 	linkSocket: function(_io, _socket) {
 		socket = _socket;
