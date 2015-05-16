@@ -27,9 +27,9 @@ app.post('/userauth', function(req, res, next) {
 	var user_id = req.body.user_id,
 		auth_key = req.body.token;
 	console.log("USER ID:" + user_id);
-	console.log("AUTH KEY" + auth_key);
+	console.log("AUTH KEY: " + auth_key);
 	//set up request to get playlist from spotify
-	/*var _headers = {
+	var _headers = {
 		'Authentication': 'Bearer' + auth_key
 	};
 	var options = {
@@ -37,15 +37,15 @@ app.post('/userauth', function(req, res, next) {
 		method: 'GET',
 		headers: _headers
 	};
-	return request(options, function(err, res, body) {
+	return request(options, function(err, resp, body) {
 		if(!err) {
 			console.log(body);
+
 		}else {
 			console.log(err);
 		}
-	});*/
-
-	res.end();
+		res.end();
+	});
 });
 
 
