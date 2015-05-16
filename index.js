@@ -28,7 +28,7 @@ io.on('connection', function(socket) {
 	party_handler.linkSocket(io, socket);
 
 	console.log('SOCKET CONNECTED');
-	socket.on('playlist-request', party_handler.testReturn);
+	socket.on('playlist-request', party_handler.joinParty);
 
 	socket.on('disconnect', function() {
 		console.log('SOCKET DISCONNECTED');

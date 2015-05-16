@@ -1,3 +1,4 @@
+var request = require('request');
 var mongoose = require('mongoose'),
 	PartyModel = require('../models/Party').Party;
 
