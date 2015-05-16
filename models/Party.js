@@ -15,7 +15,8 @@ module.exports = (function() {
 		artist: String,
 		URI: Number,
 		art: String,
-		upvotes: { type: Number, required: true }
+		upvotes: Number,
+		playing: Boolean
 	});
 
 	return {
