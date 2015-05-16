@@ -25,10 +25,10 @@ module.exports = {
 				console.log(body.items);
 				var tracks = parseTracks(body.items);
 				for(var i = 0; i < tracks.length; i++){
-					console.log("Title: " + tracks.title);
-					console.log("Artist: " + tracks.artist);
-					console.log("Art: " + tracks.art);
-					console.log("URI: " + tracks.URI);
+					console.log("Title: " + tracks[i].title);
+					console.log("Artist: " + tracks[i].artist);
+					console.log("Art: " + tracks[i].art);
+					console.log("URI: " + tracks[i].URI);
 				}
 			}else {
 				console.log(err);
@@ -70,7 +70,6 @@ module.exports = {
 var parseTracks = function(tracks) {
 	var result = [];
 	for(var i = 0; i < tracks.length; i++) {
-		console.log('track: ' + tracks[i].track.name);
 		result.push({
 			title: tracks[i].track.name,
 			artist: tracks[i].track.artists[0].name,
