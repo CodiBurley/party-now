@@ -29,6 +29,10 @@ io.on('connection', function(socket) {
 
 	console.log('SOCKET CONNECTED');
 	//socket.on('party-join', party_handler.joinParty)
+
+	socket.on('disconnect', function() {
+		console.log('SOCKET DISCONNECTED');
+	});
 });
 
 //ROUTING
