@@ -5,8 +5,7 @@ module.exports = (function() {
 
 	var partySchema = new Schema({  //When searching for song, use party
 		name: String,               //object id and URI
-		queue: Array,    //An Array of URI's that refer to Songs
-		playlist: Array  //same as above
+		queue: { type: Array, default: [] }    //An Array of URI's that refer to Songs
 	});
 
 	var songSchema = new Schema({

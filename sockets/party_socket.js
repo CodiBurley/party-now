@@ -7,7 +7,7 @@ var io = null,
 
 module.exports = {
 
-	joinParty: function(res) {
+	hostParty: function(res) {
 		var user_id = res.user_id,
 			auth_key = res.token;
 		//set up request to get playlist from spotify
@@ -19,38 +19,31 @@ module.exports = {
 			method: 'GET',
 			headers: _headers
 		};
-		return request(options, function(err, res, body) {
+		request(options, function(err, resp, body) {
 			if(!err) {
 				body = JSON.parse(body);
-				console.log(body.items);
 				var tracks = parseTracks(body.items);
-				for(var i = 0; i < tracks.length; i++){
-					console.log("Title: " + tracks[i].title);
-					console.log("Artist: " + tracks[i].artist);
-					console.log("Art: " + tracks[i].art);
-					console.log("URI: " + tracks[i].URI);
-				}
+
+				var party_query = PartyModel.findOne({ 'name' : res.party }, function(err, results) {
+					socket.join(res.party); //the room must be joined regardless
+					var uriArray = getURIs(tracks);
+					if(!results) {                      //if a party with the name given is not found,
+						var newParty = new PartyModel({ //then make a party with that name
+							name: res.party
+							queue: uriArray
+						});
+						newParty.save(function(err) {
+							if(err) { return console.log(err); }
+						});
+					}
+					//io.to(results.name).emit('queueReturn', {								
+					//})					
+				})
+
 			}else {
 				console.log(err);
 			}
 		});		
-
-		/*var party_query = PartyModel.findOne({ 'name' : res.party }, function(err, results) {
-			socket.join(res.party); //the room must be joined regardless
-
-			if(!results) {                      //if a party with the name given is not found,
-				var newParty = new PartyModel({ //then make a party with that name
-					name: res.party
-				});
-				newParty.save(function(err) {
-					if(err) { return console.log(err); }
-				});
-			}
-			return io.to(results.name).emit('queueReturn', {
-						
-			})
-			
-		})*/
 	},
 
 	testReturn: function(res) {
@@ -79,6 +72,23 @@ var parseTracks = function(tracks) {
 	}
 	return result;
 }
+
+var getURIs = function(tracks) {
+	var result = [];
+	for(var i = 0; i < tracks.length; i++) {
+		result.push(tracks[i].URI);
+	}
+	return result;
+}
+
+
+
+
+
+
+
+
+
 
 
 
