@@ -22,13 +22,14 @@ module.exports = {
 		return request(options, function(err, res, body) {
 			if(!err) {
 				body = JSON.parse(body);
-				var tracks = parseTracks(body.items);
+				console.log(body.items);
+				/*var tracks = parseTracks(body.items);
 				for(var i = 0; i < tracks.length; i++){
 					console.log("Title: " + tracks.title);
 					console.log("Artist: " + tracks.artist);
 					console.log("Art: " + tracks.art);
 					console.log("URI: " + tracks.URI);
-				}
+				}*/
 				//TODO, get Title, artist, and URI
 			}else {
 				console.log(err);
