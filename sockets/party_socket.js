@@ -29,7 +29,7 @@ module.exports = {
 					var uriArray = getURIs(tracks);
 					if(!results) {                      //if a party with the name given is not found,
 						var newParty = new PartyModel({ //then make a party with that name
-							name: res.party
+							name: res.party,
 							queue: uriArray
 						});
 						newParty.save(function(err) {
