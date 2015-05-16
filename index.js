@@ -41,9 +41,8 @@ app.post('/userauth', function(req, res, next) {
 		if(!err) {
 			console.log("TYPE: " + typeof body);
 			body = JSON.parse(body);
-			for(var i = 0; i < body.items.length; i++) {
-				console.log(body.items[i].name);
-			}
+			var playlists = parsePlaylists(body.items);
+			res.send(playlists); //sends array of names, ids, and img urls
 		}else {
 			console.log(err);
 		}
@@ -55,3 +54,19 @@ app.post('/userauth', function(req, res, next) {
 http.listen(process.env.PORT || 3000, function() {
 	console.log("listening ");
 });
+
+/*
+ *function that returns array of objects containing 
+ *a name and id for a playlist for each playlist
+ */
+var parsePlaylists = function(lists) {
+	var result = [];
+	for(var i = 0; i < lists.length; i++) {
+		result.push({ 
+			name: lists[i].name,
+			id: lists[i].id,
+			image_url: lists[i].images[0].url
+		});
+	};
+	return result;
+};
