@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var PartyModel = require('./models/Party').Party,
 	SongModel = require('./models/Party').Song;
 
+//set port
+app.set('port', normalizePort(process.env.PORT || '3000'));
+
 //connect to database
 var mongoURI = "mongodb://dualranger:hack2015@ds031892.mongolab.com:31892/jukebox",
 	mongooseURI = uriUtil.formatMongoose(mongoURI);
