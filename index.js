@@ -45,6 +45,6 @@ app.post('/userauth', function(req, res, next) {
 });
 
 
-http.listen(3000, function() {
+http.listen(process.env.port || 3000, function() {
 	console.log("listening on port 3000");
 });
