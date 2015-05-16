@@ -19,13 +19,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Set up socket.io
 var io = require('socket.io')(http);
-/*io.on('connection', function(socket) {
+io.on('connection', function(socket) {
 	var party_handler = require('./socket/party_socket.js');
 	party_handler.linkSocket(io, socket);
 
 	console.log('SOCKET CONNECTED');
 	//socket.on('party-join', party_handler.joinParty)
-});*/
+});
 
 //ROUTING
 app.post('/userauth', function(req, res, next) {
