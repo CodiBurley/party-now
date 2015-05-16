@@ -3,8 +3,8 @@ module.exports = (function() {
 	var mongoose = require('mongoose');
 	var Schema = mongoose.Schema;
 
-	var partySchema = new Schema({
-		name: String,
+	var partySchema = new Schema({  //When searching for song, use party
+		name: String,               //object id and URI
 		queue: Array,    //An Array of URI's that refer to Songs
 		playlist: Array  //same as above
 	});

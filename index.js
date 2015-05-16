@@ -41,7 +41,7 @@ app.post('/userauth', function(req, res, next) {
 		}
 	});*/
 
-	//return console.log(req.body);
+	res.end();
 });
 
 
