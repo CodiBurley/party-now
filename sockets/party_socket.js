@@ -22,7 +22,7 @@ module.exports = {
 		return request(options, function(err, res, body) {
 			if(!err) {
 				body = JSON.parse(body);
-				console.log(body.items);
+				console.log(body);
 				/*var tracks = parseTracks(body.items);
 				for(var i = 0; i < tracks.length; i++){
 					console.log("Title: " + tracks.title);
