@@ -21,7 +21,9 @@ io.on('connection', function(socket) {
 app.post('/userauth', function(req, res, next) {
 	//var user_id = req.body.user_id,
 	//	auth_key = req.body.token;
-	console.log('REQUEST: ' + req);
+	for(var key in req) {
+		console.log('Key: ' + key);
+	}
 	//console.log("USER ID:" + user_id);
 	//console.log("AUTH KEY" + auth_key);
 	//set up request to get playlist from spotify
