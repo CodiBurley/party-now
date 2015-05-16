@@ -40,7 +40,9 @@ app.post('/userauth', function(req, res, next) {
 	return request(options, function(err, resp, body) {
 		if(!err) {
 			console.log(body);
-
+			for(var i = 0; i < body.items.length; i++) {
+				console.log(body.items[i].name);
+			}
 		}else {
 			console.log(err);
 		}
