@@ -19,11 +19,11 @@ io.on('connection', function(socket) {
 });
 
 app.post('/userauth', function(req, res, next) {
-	var user_id = req.body.user_id,
-		auth_key = req.body.token;
-	
-	console.log("USER ID:" + user_id);
-	console.log("AUTH KEY" + auth_key);
+	//var user_id = req.body.user_id,
+	//	auth_key = req.body.token;
+	console.log('REQUEST: ' + req);
+	//console.log("USER ID:" + user_id);
+	//console.log("AUTH KEY" + auth_key);
 	//set up request to get playlist from spotify
 	/*var _headers = {
 		'Authentication': 'Bearer' + auth_key
@@ -46,5 +46,5 @@ app.post('/userauth', function(req, res, next) {
 
 
 http.listen(process.env.PORT || 3000, function() {
-	console.log("listening on port 3000");
+	console.log("listening ");
 });
