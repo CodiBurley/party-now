@@ -32,9 +32,11 @@ module.exports = {
 							name: res.party,
 							queue: uriArray
 						});
+						console.log(newParty.id);
 						newParty.save(function(err) {
 							if(err) { return console.log(err); }
 						});
+
 					}
 					//io.to(results.name).emit('queueReturn', {								
 					//})					
