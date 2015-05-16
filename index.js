@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Set up socket.io
 var io = require('socket.io')(http);
 io.on('connection', function(socket) {
-	var party_handler = require('./socket/party_socket.js');
+	var party_handler = require('./sockets/party_socket.js');
 	party_handler.linkSocket(io, socket);
 
 	console.log('SOCKET CONNECTED');
