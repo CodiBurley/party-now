@@ -1,0 +1,18 @@
+{
+  "name": "spotifyJukebox",
+  "version": "1.0.0",
+  "description": "A jukebox to add songs to a parties queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Codi Burley",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.12.3",
+    "mongoose": "^4.0.3",
+    "mongodb-uri": "^0.9.7",
+    "socket.io": "^1.3.5"
+  }
+}
