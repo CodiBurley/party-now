@@ -135,7 +135,7 @@ var host_queue = [];
 var saveSongs = function(tracks, party_id, party_name, index) {
 	if(index == -1) {
 		console.log('ready to emit inital queue');
-		io.emit.to(party_name)('init-queue', host_queue);
+		io.to(party_name).emit('init-queue', host_queue);
 		return;
 	}else if(index == tracks.length - 1) {
 		host_queue = [];
