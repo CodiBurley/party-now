@@ -59,7 +59,7 @@ module.exports = {
 		});
 	},
 
-	updateQueue: function(res) {
+	udpateQueue: function(res) {
 		//res.party, res.URI
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
