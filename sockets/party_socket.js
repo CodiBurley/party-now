@@ -72,6 +72,18 @@ module.exports = {
 		});
 	},
 
+	endSong: function(res) {
+		console.log('SONG ENDED');
+		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
+			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
+				song_results.upvotes = 0;
+				song_results.save();
+				io.to(res.party).emit('song-over', song_results.URI);
+				return;
+			});
+		});
+	},
+
 	linkSocket: function(_io, _socket) {
 		socket = _socket;
 		io = _io;

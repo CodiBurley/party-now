@@ -31,6 +31,7 @@ io.on('connection', function(socket) {
 	socket.on('playlist-request', party_handler.hostParty);
 	socket.on('guest-join', party_handler.guestJoin);
 	socket.on('queue-update', party_handler.udpateQueue);
+	socket.on('song-end', party_handler.endSong);
 
 	socket.on('disconnect', function() {
 		console.log('SOCKET DISCONNECTED');
