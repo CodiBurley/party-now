@@ -14,8 +14,8 @@ module.exports = (function() {
 		artist: String,
 		URI: Number,
 		art: String,
-		upvotes: Number,
-		playing: Boolean
+		upvotes: { type: Number, default: 0 },
+		playing: {type: Boolean, default: false}
 	});
 
 	return {

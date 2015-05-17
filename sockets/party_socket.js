@@ -1,6 +1,7 @@
 var request = require('request');
 var mongoose = require('mongoose'),
-	PartyModel = require('../models/Party').Party;
+	PartyModel = require('../models/Party').Party,
+	SongModel = require('../models/Party').Song;
 
 var io = null,
 	socket = null;
@@ -32,9 +33,10 @@ module.exports = {
 							name: res.party,
 							queue: uriArray
 						});
-						console.log(newParty.id);
+
 						newParty.save(function(err) {
 							if(err) { return console.log(err); }
+							else { return saveSongs(tracks, newParty.id, res.party); }
 						});
 
 					}
@@ -82,6 +84,32 @@ var getURIs = function(tracks) {
 	}
 	return result;
 }
+
+var saveSongs = function(tracks, party_id, party_name) {
+	var result = [];
+	for(var i = 0; i < tracks.length; i++) {
+		var newSong = new SongModel({
+			party: party_id,
+			name: tracks[i].title,
+			artist: tracks[i].artist,
+			URI: tracks[i].URI,
+			art: tracks[i].art,
+		});
+		result.push({
+			name: tracks[i].title,
+			artist: tracks[i].artist,
+			URI: tracks[i].URI,
+			art: tracks[i].art,			
+		});
+		newSong.save(function(err) {
+			if(err) {
+				console.log(err);
+			}else if(i == tracks.length - 1) {
+				io.to(party_name).emit('init-queue', result);
+			} 
+		});
+	}
+};
 
 
 
