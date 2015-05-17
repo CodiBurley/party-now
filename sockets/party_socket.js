@@ -152,7 +152,7 @@ var saveSongs = function(tracks, party_id, party_name, index) {
 	});
 };
 
-var guest_queue = [];
+/*var guest_queue = [];
 var dealGuestQueue = function(queue, party_name, obj_id, index) {
 	if(index == -1) {
 		console.log("ready to emit queue to guest joining");
@@ -172,7 +172,7 @@ var dealGuestQueue = function(queue, party_name, obj_id, index) {
 		});
 		dealGuestQueue(queue, party_name, obj_id, index - 1);
 	});	
-}
+}*/
 
 
 
