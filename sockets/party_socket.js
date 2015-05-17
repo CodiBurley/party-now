@@ -122,7 +122,8 @@ var saveSongs = function(tracks, party_id, party_name) {
 			if(err) {
 				console.log(err);
 			}else if(i == tracks.length - 1) {
-				io.to(party_name).emit('init-queue', result);
+				console.log("READY TO EMIT QUEUE*********");
+				io.emit('init-queue', result);
 			} 
 		});
 	}
