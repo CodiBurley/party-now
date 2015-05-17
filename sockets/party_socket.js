@@ -47,7 +47,24 @@ module.exports = {
 	},
 
 	guestJoin: function(res) {
-		var blah;
+		PartyModel.findOne({ 'name': res.party }, function(err, results) {
+			var queue = results.queue,
+				result = [];
+			for(var i = 0; i < queue.length; i++) {
+				SongModel.findOne({ 'URI': queue[i], 'party': results.id }, function(err, results) {
+					if(err) { return console.log('ERROR FINDING SONGS: ' + err)}
+					result.push({
+						name: results.name,
+						artist: results.artist,
+						URI: results.URI,
+						art:results.art
+					});
+				});
+				if(i == queue.length - 1) {
+					 return io.to(res.party).emit('init-guest', result);
+				}
+			}
+		});
 	},
 
 	testReturn: function(res) {
