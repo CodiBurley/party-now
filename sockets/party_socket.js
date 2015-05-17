@@ -78,6 +78,9 @@ module.exports = {
 
 }
 
+/*
+ *HELPER FUNCTIONS
+ */
 var parseTracks = function(tracks) {
 	var result = [];
 	for(var i = 0; i < tracks.length; i++) {
@@ -98,34 +101,6 @@ var getURIs = function(tracks) {
 	}
 	return result;
 }
-
-/*var saveSongs = function(tracks, party_id, party_name) {
-	var result = [];
-	//io.emit('init-queue', result);
-	for(var i = 0; i < tracks.length; i++) {
-		var newSong = new SongModel({
-			party: party_id,
-			name: tracks[i].title,
-			artist: tracks[i].artist,
-			URI: tracks[i].URI,
-			art: tracks[i].art,
-		});
-		result.push({
-			name: tracks[i].title,
-			artist: tracks[i].artist,
-			URI: tracks[i].URI,
-			art: tracks[i].art,			
-		});
-		newSong.save(function(err) {
-			if(err) {
-				console.log(err);
-			}else if(i == tracks.length - 1) {
-				console.log("READY TO EMIT QUEUE*********");
-				io.emit('init-queue', result);
-			} 
-		});
-	}
-};*/
 
 var host_queue = [];
 var saveSongs = function(tracks, party_id, party_name, index) {
