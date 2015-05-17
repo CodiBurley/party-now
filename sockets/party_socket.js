@@ -50,7 +50,8 @@ module.exports = {
 		PartyModel.findOne({ 'name': res.party }, function(err, results) {
 			var queue = results.queue,
 				result = [];
-			for(var i = 0; i < queue.length; i++) {
+
+			/*for(var i = 0; i < queue.length; i++) {
 				SongModel.findOne({ 'URI': queue[i], 'party': results.id }, function(err, results) {
 					if(err) { return console.log('ERROR FINDING SONGS: ' + err)}
 					result.push({
@@ -63,7 +64,7 @@ module.exports = {
 				if(i == queue.length - 1) {
 					 return io.to(res.party).emit('init-guest', result);
 				}
-			}
+			}*/
 		});
 	},
 
@@ -133,8 +134,8 @@ var getURIs = function(tracks) {
 var host_queue = [];
 var saveSongs = function(tracks, party_id, party_name, index) {
 	if(index == -1) {
-		console.log('ready to emit');
-		io.emit('init-queue', host_queue);
+		console.log('ready to emit inital queue');
+		io.emit.to(party_name)('init-queue', host_queue);
 		return;
 	}else if(index == tracks.length - 1) {
 		host_queue = [];
@@ -160,6 +161,14 @@ var saveSongs = function(tracks, party_id, party_name, index) {
 		}
 	});
 };
+
+var guest_queue = [];
+var dealGuestQueue = function(queue, party_name, index) {
+	if(index == -1) {
+		console.log("ready to emit queue to guest joining");
+		//io.emit()
+	}
+}
 
 
 
