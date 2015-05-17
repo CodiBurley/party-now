@@ -48,7 +48,7 @@ module.exports = {
 
 	guestJoin: function(res) {
 		PartyModel.findOne({ 'name': res.party }, function(err, results) {
-			var queue = results.queue,
+			var queue = results.queue;
 			return dealGuestQueue(queue, party_name, obj_id, index - 1);
 		});
 	},
