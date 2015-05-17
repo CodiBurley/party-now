@@ -12,7 +12,7 @@ module.exports = (function() {
 		party: { type: Schema.Types.ObjectId, ref: 'Party' },
 		name: String,
 		artist: String,
-		URI: Number,
+		URI: String,
 		art: String,
 		upvotes: { type: Number, default: 0 },
 		playing: {type: Boolean, default: false}
