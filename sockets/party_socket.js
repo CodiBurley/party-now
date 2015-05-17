@@ -133,7 +133,9 @@ var getURIs = function(tracks) {
 var host_queue = [];
 var saveSongs = function(tracks, party_id, party_name, index) {
 	if(index == -1) {
-		return io.emit('init-queue', host_queue);
+		console.log('ready to emit');
+		io.emit('init-queue', host_queue);
+		return;
 	}else if(index == tracks.length - 1) {
 		host_queue = [];
 	}
