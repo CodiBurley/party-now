@@ -53,7 +53,7 @@ module.exports = {
 		});
 	},
 
-	updateQueue: function(res) {
+	/*updateQueue: function(res) {
 		//res.party, res.URI
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
@@ -63,7 +63,7 @@ module.exports = {
 				return;
 			});
 		});
-	},
+	},*/
 
 	linkSocket: function(_io, _socket) {
 		socket = _socket;
