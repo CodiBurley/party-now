@@ -66,7 +66,7 @@ module.exports = {
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
 				song_results.upvotes++;
 				song_results.save();
-				io.to(res.party).emit('client-update', song_results.name);
+				io.to(res.party).emit('client-update', song_results.URI);
 				return;
 			});
 		});
