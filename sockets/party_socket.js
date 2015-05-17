@@ -102,7 +102,7 @@ var getURIs = function(tracks) {
 	return result;
 }
 
-var saveSongs = function(tracks, party_id, party_name) {
+/*var saveSongs = function(tracks, party_id, party_name) {
 	var result = [];
 	//io.emit('init-queue', result);
 	for(var i = 0; i < tracks.length; i++) {
@@ -128,6 +128,35 @@ var saveSongs = function(tracks, party_id, party_name) {
 			} 
 		});
 	}
+};*/
+
+var host_queue = [];
+var saveSongs = function(tracks, party_id, party_name, index) {
+	if(index == -1) {
+		return io.emit('init-queue', host_queue);
+	}else if(index == tracks.length - 1) {
+		host_queue = [];
+	}
+	var newSong = new SongModel({
+		party: party_id,
+		name: tracks[i].title,
+		artist: tracks[i].artist,
+		URI: tracks[i].URI,
+		art: tracks[i].art,
+	});
+	host_queue.push({
+		name: tracks[i].title,
+		artist: tracks[i].artist,
+		URI: tracks[i].URI,
+		art: tracks[i].art,			
+	});
+	newSong.save(function(err) {
+		if(err) {
+			console.log(err);
+		}else{
+			saveSongs(tracks, party_id, party_name, index - 1);	
+		}
+	});
 };
 
 
