@@ -47,6 +47,7 @@ module.exports = {
 	},
 
 	guestJoin: function(res) {
+		console.log("GUEST ATTEMPTING TO JOIN");
 		PartyModel.findOne({ 'name': res.party }, function(err, results) {
 			var queue = results.queue;
 			return dealGuestQueue(queue, party_name, obj_id, index - 1);
