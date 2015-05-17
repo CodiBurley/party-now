@@ -139,16 +139,16 @@ var saveSongs = function(tracks, party_id, party_name, index) {
 	}
 	var newSong = new SongModel({
 		party: party_id,
-		name: tracks[i].title,
-		artist: tracks[i].artist,
-		URI: tracks[i].URI,
-		art: tracks[i].art,
+		name: tracks[index].title,
+		artist: tracks[index].artist,
+		URI: tracks[index].URI,
+		art: tracks[index].art,
 	});
 	host_queue.push({
-		name: tracks[i].title,
-		artist: tracks[i].artist,
-		URI: tracks[i].URI,
-		art: tracks[i].art,			
+		name: tracks[index].title,
+		artist: tracks[index].artist,
+		URI: tracks[index].URI,
+		art: tracks[index].art,			
 	});
 	newSong.save(function(err) {
 		if(err) {
