@@ -50,7 +50,7 @@ module.exports = {
 		console.log("GUEST ATTEMPTING TO JOIN");
 		PartyModel.findOne({ 'name': res.party }, function(err, results) {
 			var queue = results.queue;
-			return dealGuestQueue(queue, res.party, obj_id, index - 1);
+			return dealGuestQueue(queue, res.party, results.id, queue.length - 1);
 		});
 	},
 
