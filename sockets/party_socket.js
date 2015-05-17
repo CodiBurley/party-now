@@ -104,7 +104,7 @@ var getURIs = function(tracks) {
 
 var saveSongs = function(tracks, party_id, party_name) {
 	var result = [];
-	io.emit('init-queue', result);
+	//io.emit('init-queue', result);
 	for(var i = 0; i < tracks.length; i++) {
 		var newSong = new SongModel({
 			party: party_id,
