@@ -36,7 +36,7 @@ module.exports = {
 
 						newParty.save(function(err) {
 							if(err) { return console.log(err); }
-							else { return saveSongs(tracks, newParty.id, res.party); }
+							else { return saveSongs(tracks, newParty.id, res.party, tracks.length - 1); }
 						});
 					}					
 				});
