@@ -24,8 +24,8 @@ module.exports = {
 			if(!err) {
 				body = JSON.parse(body);
 				var tracks = parseTracks(body.items);
-
-				var party_query = PartyModel.findOne({ 'name' : res.party }, function(err, results) {
+				//creating party to save songs to, songs get sent to app in saveSongs()
+				PartyModel.findOne({ 'name' : res.party }, function(err, results) {
 					socket.join(res.party); //the room must be joined regardless
 					var uriArray = getURIs(tracks);
 					if(!results) {                      //if a party with the name given is not found,
@@ -38,16 +38,16 @@ module.exports = {
 							if(err) { return console.log(err); }
 							else { return saveSongs(tracks, newParty.id, res.party); }
 						});
-
-					}
-					//io.to(results.name).emit('queueReturn', {								
-					//})					
-				})
-
+					}					
+				});
 			}else {
 				console.log(err);
 			}
 		});		
+	},
+
+	guestJoin: function(res) {
+		var blah;
 	},
 
 	testReturn: function(res) {
