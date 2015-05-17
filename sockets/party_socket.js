@@ -49,30 +49,20 @@ module.exports = {
 	guestJoin: function(res) {
 		PartyModel.findOne({ 'name': res.party }, function(err, results) {
 			var queue = results.queue,
-				result = [];
-
-			/*for(var i = 0; i < queue.length; i++) {
-				SongModel.findOne({ 'URI': queue[i], 'party': results.id }, function(err, results) {
-					if(err) { return console.log('ERROR FINDING SONGS: ' + err)}
-					result.push({
-						name: results.name,
-						artist: results.artist,
-						URI: results.URI,
-						art:results.art
-					});
-				});
-				if(i == queue.length - 1) {
-					 return io.to(res.party).emit('init-guest', result);
-				}
-			}*/
+			return dealGuestQueue(queue, party_name, obj_id, index - 1);
 		});
 	},
 
-	testReturn: function(res) {
-		console.log("party: " + res.party);
-		console.log("playlist id: " + res.list_id);
-		console.log("token: " +  res.token);
-		console.log("user id: " + res.user_id);
+	updateQueue: function(res) {
+		//res.party, res.URI
+		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
+			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
+				song_results.upvotes++;
+				song_results.save();
+				io.to(res.party).emit('client-update', song_results.name);
+				return;
+			});
+		});
 	},
 
 	linkSocket: function(_io, _socket) {
@@ -163,11 +153,25 @@ var saveSongs = function(tracks, party_id, party_name, index) {
 };
 
 var guest_queue = [];
-var dealGuestQueue = function(queue, party_name, index) {
+var dealGuestQueue = function(queue, party_name, obj_id, index) {
 	if(index == -1) {
 		console.log("ready to emit queue to guest joining");
-		//io.emit()
+		io.to(party_name).emit('init-guest', guest_queue);
+		return;
+	}else if(index == queue.length - 1) {
+		guest_queue = [];
 	}
+	SongModel.findOne({ 'URI': queue[index], 'party': obj_id }, function(err, results) {
+		if(err) { return console.log('ERROR FINDING SONGS: ' + err)}
+		guest_queue.push({
+			name: results.name,
+			artist: results.artist,
+			URI: results.URI,
+			art:results.art,
+			upvotes: results.upvotes
+		});
+		dealGuestQueue(queue, party_name, obj_id, index - 1);
+	});	
 }
 
 
