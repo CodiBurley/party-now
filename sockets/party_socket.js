@@ -76,7 +76,7 @@ module.exports = {
 		console.log('SONG ENDED');
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
-				song_results.upvotes = 0;
+				song_results.upvotes = -1;
 				song_results.save();
 				io.to(res.party).emit('song-over', song_results.URI);
 				return;
@@ -115,6 +115,11 @@ var getURIs = function(tracks) {
 	return result;
 }
 
+
+/*
+ *The two functions below use recursion to 
+ *handle the asynchronous saving of documents to a mongoDB
+ */
 var host_queue = [];
 var saveSongs = function(tracks, party_id, party_name, index) {
 	if(index == -1) {
