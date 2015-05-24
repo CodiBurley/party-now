@@ -136,6 +136,7 @@ var saveSongs = function(tracks, party_id, party_name, index) {
 		URI: tracks[index].URI,
 		art: tracks[index].art,
 	});
+	console.log("NEW SONG title: " + newSong.name);
 	host_queue.push({
 		name: tracks[index].title,
 		artist: tracks[index].artist,
