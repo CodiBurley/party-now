@@ -9,6 +9,7 @@ var io = null,
 module.exports = {
 
 	hostParty: function(res) {
+		console.log("PLAYLIST BEING REQUESTED");
 		var user_id = res.user_id,
 			auth_key = res.token;
 		//set up request to get playlist from spotify
@@ -136,7 +137,6 @@ var saveSongs = function(tracks, party_id, party_name, index) {
 		URI: tracks[index].URI,
 		art: tracks[index].art,
 	});
-	console.log("NEW SONG title: " + newSong.name);
 	host_queue.push({
 		name: tracks[index].title,
 		artist: tracks[index].artist,
