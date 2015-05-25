@@ -49,29 +49,37 @@ module.exports = {
 		});		
 	},
 
-	/*hostParty2: function(res) {
+	hostParty2: function(res) {
 		console.log('PLAYLIST BEING REQUESTED');
 		var user_id = res.user_id,
 			auth_key = res.token;
 		PartyModel.findOne({ 'name' : res.party }, function(err, results) {
 			if(results) { return socket.emit('part-name-taken'); } // if party exists
 			//set up request to get playlist from spotify
-			var _headers = {
-				'Authorization': 'Bearer ' + auth_key
-			};
 			var options = {
 				url: 'https://api.spotify.com/v1/users/'+ user_id +'/playlists/' + res.list_id + '/tracks' ,
 				method: 'GET',
-				headers: _headers
+				headers: { 'Authorization': 'Bearer ' + auth_key }
 			};		
 			request(options, function(err, resp, body) {
 				if(!err) {
 					body = JSON.parse(body);
-					var tracks = parseTracks(body.items);
-				}
-			}
-		}
-	},*/
+					var tracks = parseTracks(body.items),
+					    uriArray = getURIs(tracks);
+					socket.join(res.party);
+					var newParty = new PartyModel({
+						name: res.party,
+						queue: uriArray
+					});
+
+					newParty.save(function(err) {
+						if(err) { return console.log(err); }
+						else { return saveSongs(tracks, newParty.id, res.party, tracks.length - 1); }
+					});
+				}else { console.log(err); }
+			});
+		});
+	},
 
 	guestJoin: function(res) {
 		console.log("GUEST ATTEMPTING TO JOIN");
