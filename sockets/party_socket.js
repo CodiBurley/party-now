@@ -8,7 +8,7 @@ var io = null,
 
 module.exports = {
 
-	hostParty: function(res) {
+	/*hostParty: function(res) {
 		console.log("PLAYLIST BEING REQUESTED");
 		var user_id = res.user_id,
 			auth_key = res.token;
@@ -47,14 +47,14 @@ module.exports = {
 				console.log(err);
 			}
 		});		
-	},
+	},*/
 
-	hostParty2: function(res) {
+	hostParty: function(res) {
 		console.log('PLAYLIST BEING REQUESTED');
 		var user_id = res.user_id,
 			auth_key = res.token;
 		PartyModel.findOne({ 'name' : res.party }, function(err, results) {
-			if(results) { return socket.emit('part-name-taken'); } // if party exists
+			if(results) { return socket.emit('party-name-taken'); } // if party exists
 			//set up request to get playlist from spotify
 			var options = {
 				url: 'https://api.spotify.com/v1/users/'+ user_id +'/playlists/' + res.list_id + '/tracks' ,
@@ -71,7 +71,6 @@ module.exports = {
 						name: res.party,
 						queue: uriArray
 					});
-
 					newParty.save(function(err) {
 						if(err) { return console.log(err); }
 						else { return saveSongs(tracks, newParty.id, res.party, tracks.length - 1); }
