@@ -40,7 +40,7 @@ module.exports = {
 							else { return saveSongs(tracks, newParty.id, res.party, tracks.length - 1); }
 						});
 					}else {
-						sockt.emit('party-name-taken');
+						socket.emit('party-name-taken');
 					}					
 				});
 			}else {
