@@ -39,6 +39,8 @@ module.exports = {
 							if(err) { return console.log(err); }
 							else { return saveSongs(tracks, newParty.id, res.party, tracks.length - 1); }
 						});
+					}else {
+						sockt.emit('part-name-taken');
 					}					
 				});
 			}else {
