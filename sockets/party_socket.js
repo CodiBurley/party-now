@@ -35,7 +35,8 @@ module.exports = {
 					socket.join(res.party);
 					var newParty = new PartyModel({
 						name: res.party,
-						queue: uriArray
+						queue: uriArray,
+						timestamp: Util.stampTime()
 					});
 					newParty.save(function(err) {
 						if(err) { return console.log(err); }
