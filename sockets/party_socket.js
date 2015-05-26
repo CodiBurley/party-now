@@ -88,12 +88,10 @@ module.exports = {
 
 	guestJoin: function(res) {
 		console.log("GUEST ATTEMPTING TO JOIN");
-		console.log("RES: " + res);
-		console.log("PARTY: " + res.party);
 		socket.join(res.party);
 		PartyModel.findOne({ 'name': res.party }, function(err, results) {
 			if(!results) {
-				io.to(res.party).emit('party-not-found');
+				socket.emit('party-not-found');
 				return;
 			}
 			var queue = results.queue;
@@ -102,7 +100,6 @@ module.exports = {
 	},
 
 	udpateQueue: function(res) {
-		//res.party, res.URI
 		console.log('SONG UPVOTED');
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
@@ -118,7 +115,7 @@ module.exports = {
 		console.log('SONG ENDED');
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
-				song_results.upvotes = -1;
+				song_results.upvotes = 0;
 				song_results.save();
 				io.to(res.party).emit('song-over', song_results.URI);
 				return;
@@ -166,7 +163,7 @@ var host_queue = [];
 var saveSongs = function(tracks, party_id, party_name, index) {
 	if(index == -1) {
 		console.log('ready to emit inital queue');
-		io.to(party_name).emit('init-queue', host_queue);
+		socket.emit('init-queue', host_queue);
 		return;
 	}else if(index == tracks.length - 1) {
 		host_queue = [];
@@ -197,7 +194,7 @@ var guest_queue = [];
 var dealGuestQueue = function(queue, party_name, obj_id, index) {
 	if(index == -1) {
 		console.log("ready to emit queue to guest joining");
-		io.to(party_name).emit('init-guest', guest_queue);
+		socket.emit('init-guest', guest_queue);
 		return;
 	}else if(index == queue.length - 1) {
 		guest_queue = [];
