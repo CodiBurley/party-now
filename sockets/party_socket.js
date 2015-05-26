@@ -14,47 +14,6 @@ var io = null,
 
 module.exports = {
 
-	/*hostParty: function(res) {
-		console.log("PLAYLIST BEING REQUESTED");
-		var user_id = res.user_id,
-			auth_key = res.token;
-		//set up request to get playlist from spotify
-		var _headers = {
-			'Authorization': 'Bearer ' + auth_key
-		};
-		var options = {
-			url: 'https://api.spotify.com/v1/users/'+ user_id +'/playlists/' + res.list_id + '/tracks' ,
-			method: 'GET',
-			headers: _headers
-		};
-		request(options, function(err, resp, body) {
-			if(!err) {
-				body = JSON.parse(body);
-				var tracks = parseTracks(body.items);
-				//creating party to save songs to, songs get sent to app in saveSongs()
-				PartyModel.findOne({ 'name' : res.party }, function(err, results) {
-					socket.join(res.party); //the room must be joined regardless
-					var uriArray = getURIs(tracks);
-					if(!results) {                      //if a party with the name given is not found,
-						var newParty = new PartyModel({ //then make a party with that name
-							name: res.party,
-							queue: uriArray
-						});
-
-						newParty.save(function(err) {
-							if(err) { return console.log(err); }
-							else { return saveSongs(tracks, newParty.id, res.party, tracks.length - 1); }
-						});
-					}else {
-						socket.emit('party-name-taken');
-					}					
-				});
-			}else {
-				console.log(err);
-			}
-		});		
-	},*/
-
 	hostParty: function(res) {
 		console.log('PLAYLIST BEING REQUESTED');
 		var user_id = res.user_id,

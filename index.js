@@ -12,16 +12,16 @@ var PartyModel = require('./models/Party').Party,
 //set port
 //app.set('port', normalizePort(process.env.PORT || '3000'));
 
-//connect to database
+// Connect to database
 var mongoURI = "mongodb://dualranger:hack2015@ds031892.mongolab.com:31892/jukebox",
 	mongooseURI = uriUtil.formatMongoose(mongoURI);
 mongoose.connect(mongooseURI);
 
-//middleware
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//Set up socket.io
+// Set up socket.io
 var io = require('socket.io')(http);
 io.on('connection', function(socket) {
 	var party_handler = require('./sockets/party_socket.js');
@@ -38,7 +38,7 @@ io.on('connection', function(socket) {
 	});
 });
 
-//ROUTING
+// ROUTING
 app.post('/userauth', function(req, res, next) {
 	var user_id = req.body.user_id,
 		auth_key = req.body.token;
@@ -65,6 +65,13 @@ app.post('/userauth', function(req, res, next) {
 		res.end();
 	});
 });
+
+// Party garbage collection
+var CronJob = require('cron').CronJob;
+var job = new CronJob('*/5 * * * * *', function() {
+	console.log("HEY PAY ATTENTION TO ME!");
+});
+job.start();
 
 
 http.listen(process.env.PORT || 3000, function() {
