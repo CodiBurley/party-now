@@ -5,7 +5,13 @@ module.exports = (function() {
 
 	var partySchema = new Schema({  //When searching for song, use party
 		name: String,               //object id and URI
-		queue: { type: Array, default: [] }    //An Array of URI's that refer to Songs
+		queue: { type: Array, default: [] },    //An Array of URI's that refer to Songs
+		timestamp: {
+			hour: Number,
+			day: Number,
+			month: Number,
+			year: Number
+		}
 	});
 
 	var songSchema = new Schema({

@@ -69,7 +69,7 @@ app.post('/userauth', function(req, res, next) {
 // Party garbage collection
 var CronJob = require('cron').CronJob;
 var job = new CronJob('*/5 * * * * *', function() {
-	console.log("HEY PAY ATTENTION TO ME!");
+	//console.log("HEY PAY ATTENTION TO ME!");
 });
 job.start();
 

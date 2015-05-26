@@ -8,6 +8,7 @@ var request = require('request');
 var mongoose = require('mongoose'),
 	PartyModel = require('../models/Party').Party,
 	SongModel = require('../models/Party').Song;
+var Util = require('../Utils/util');
 
 var io = null,
 	socket = null;
