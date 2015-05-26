@@ -1,3 +1,9 @@
+/*
+ * TODO, change io.to.emit to socket.emit for
+ * instances where only you only want event emitted to 
+ * one socket.
+ */
+
 var request = require('request');
 var mongoose = require('mongoose'),
 	PartyModel = require('../models/Party').Party,
@@ -82,6 +88,8 @@ module.exports = {
 
 	guestJoin: function(res) {
 		console.log("GUEST ATTEMPTING TO JOIN");
+		console.log("RES: " + res);
+		console.log("PARTY: " + res.party);
 		socket.join(res.party);
 		PartyModel.findOne({ 'name': res.party }, function(err, results) {
 			if(!results) {
