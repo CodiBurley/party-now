@@ -115,6 +115,8 @@ var partyExpired = function(party) {
 	if(current.day != party.day) {
 		current.hour += 24;
 	}
+	console.log('CURRENT: ' + current);
+	console.log('PARTY: ' + party);
 	if(current.hour - party.hour >= Constant.PARTY_TIMEOUT) {
 		console.log("PARTY EXPIRED")
 		return true;
