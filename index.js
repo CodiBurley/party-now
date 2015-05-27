@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var request = require('request');
 var bodyParser = require('body-parser');
+var Util = require('./Utils/util'),
+    Constant = require('./Utils/constant');
 
 var PartyModel = require('./models/Party').Party,
 	SongModel = require('./models/Party').Song;
@@ -69,7 +71,7 @@ app.post('/userauth', function(req, res, next) {
 // Party garbage collection
 var CronJob = require('cron').CronJob;
 var job = new CronJob('*/180 * * * * *', function() {
-	//console.log("HEY PAY ATTENTION TO ME!");
+	console.log("CLEANING UP AFTER PARTIES");
 	collectParties();
 
 });
@@ -103,7 +105,18 @@ var parsePlaylists = function(lists) {
 var collectParties = function() {
 	PartyModel.find(function(err, results) {
 		for(var i = 0; i < results.length; i++) {
-			results[i].remove();
+			if (partyExpired(results[i])) { results[i].remove() };
 		}
 	});
+}
+
+var partyExpired = function(party) {
+	var current = Util.stampTime();
+	if(current.month > party.month || current.day > party.day) {
+		current.hour += 24;
+	}
+	if(current.hour - party.hour >= Constant.PARTY_TIMEOUT) {
+		return true;
+	}
+	return false;
 }
