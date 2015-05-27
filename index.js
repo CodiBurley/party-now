@@ -105,7 +105,7 @@ var parsePlaylists = function(lists) {
 var collectParties = function() {
 	PartyModel.find(function(err, results) {
 		for(var i = 0; i < results.length; i++) {
-			if (partyExpired(results[i]).timestamp) { results[i].remove() };
+			if (partyExpired(results[i].timestamp)) { results[i].remove() };
 		}
 	});
 }
@@ -115,8 +115,6 @@ var partyExpired = function(party) {
 	if(current.day != party.day) {
 		current.hour += 24;
 	}
-	console.log('CURRENT: ' + current);
-	console.log('PARTY: ' + party);
 	if(current.hour - party.hour >= Constant.PARTY_TIMEOUT) {
 		console.log("PARTY EXPIRED")
 		return true;
