@@ -112,10 +112,11 @@ var collectParties = function() {
 
 var partyExpired = function(party) {
 	var current = Util.stampTime();
-	if(current.month > party.month || current.day > party.day) {
+	if(current.day != party.day) {
 		current.hour += 24;
 	}
 	if(current.hour - party.hour >= Constant.PARTY_TIMEOUT) {
+		console.log("PARTY EXPIRED")
 		return true;
 	}
 	return false;
