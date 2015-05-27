@@ -68,7 +68,7 @@ app.post('/userauth', function(req, res, next) {
 
 // Party garbage collection
 var CronJob = require('cron').CronJob;
-var job = new CronJob('*/60 * * * * *', function() {
+var job = new CronJob('*/180 * * * * *', function() {
 	//console.log("HEY PAY ATTENTION TO ME!");
 	collectParties();
 
