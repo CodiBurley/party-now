@@ -68,8 +68,10 @@ app.post('/userauth', function(req, res, next) {
 
 // Party garbage collection
 var CronJob = require('cron').CronJob;
-var job = new CronJob('*/5 * * * * *', function() {
+var job = new CronJob('*/60 * * * * *', function() {
 	//console.log("HEY PAY ATTENTION TO ME!");
+	collectParties();
+
 });
 job.start();
 
@@ -93,3 +95,13 @@ var parsePlaylists = function(lists) {
 	};
 	return result;
 };
+
+/*
+ * A function that  deletes all the Parties that have been
+ * active for a certain amount of hours
+ */
+var collectParties = function() {
+	PartyModel.find(function(err, results) {
+		console.log(results)
+	});
+}
