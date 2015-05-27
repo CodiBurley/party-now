@@ -105,7 +105,7 @@ var parsePlaylists = function(lists) {
 var collectParties = function() {
 	PartyModel.find(function(err, results) {
 		for(var i = 0; i < results.length; i++) {
-			if (partyExpired(results[i])) { results[i].remove() };
+			if (partyExpired(results[i]).timestamp) { results[i].remove() };
 		}
 	});
 }
