@@ -24,7 +24,7 @@ var partyExpired = function(party) {
 	if(current.hour - party.hour >= Constant.PARTY_TIMEOUT) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 var disposeSongs = function(party_id) {
