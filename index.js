@@ -74,7 +74,7 @@ var CronJob = require('cron').CronJob;
 var job = new CronJob('*/180 * * * * *', function() {
 	console.log("CLEANING UP AFTER PARTIES");
 	//collectParties();
-	Disposal('codi')
+	Disposal();
 });
 job.start();
 

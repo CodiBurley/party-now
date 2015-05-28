@@ -6,8 +6,12 @@ var PartyModel = require('../models/Party').Party,
 module.exports = function(party_name) {
 	var params = party_name ? { 'name': party_name } : {};
 	PartyModel.find(params, function(err, results) {
+		if(err) { return console.log(err); }
 		for(var i = 0; i < results.length; i++) {
-			if( partyExpired(results[i].timestamp) ) { results[i].remove() };
+			if( partyExpired(results[i].timestamp) ) { 
+				disposeSongs(results[i].id); 
+				results[i].remove();
+			};
 		}
 	});
 }
@@ -21,4 +25,13 @@ var partyExpired = function(party) {
 		return true;
 	}
 	return true;
+}
+
+var disposeSongs = function(party_id) {
+	SongModel.find({ 'party': party_id }, function(err, results) {
+		if(err) { return console.log(err); }
+		for(var i = 0; i < results.length; i++) {
+			results[i].remove();
+		}
+	})
 }
