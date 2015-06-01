@@ -7,6 +7,7 @@ module.exports = function(party_name) {
 	if(party_name) {
 		var params = { 'name': party_name };
 		PartyModel.findOne(params, function(err, results) {
+			console.log('RESULTS: 'results);
 			if(err) { 
 				return console.log(err); 
 			}else if(results && partyExpired(results.timestamp) ) {
