@@ -54,7 +54,7 @@ module.exports = {
 		var user_id = res.user_id,
 			auth_key = res.token;
 		//PartyModel.findOne({ 'name' : res.party }, function(err, results) {
-			if(Disposal(res.party)) { 
+			if(Disposal(res.party) === false) { 
 				console.log('NAME TAKEN');
 				return socket.emit('party-name-taken'); 
 			} // if party exists
