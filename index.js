@@ -73,7 +73,6 @@ app.post('/userauth', function(req, res, next) {
 var CronJob = require('cron').CronJob;
 var job = new CronJob('*/180 * * * * *', function() {
 	console.log("CLEANING UP AFTER PARTIES");
-	//collectParties();
 	Disposal();
 });
 job.start();
@@ -98,26 +97,3 @@ var parsePlaylists = function(lists) {
 	};
 	return result;
 };
-
-/*
- * A function that  deletes all the Parties that have been
- * active for a certain amount of hours
- */
-var collectParties = function() {
-	PartyModel.find(function(err, results) {
-		for(var i = 0; i < results.length; i++) {
-			if( partyExpired(results[i].timestamp) ) { results[i].remove() };
-		}
-	});
-}
-
-var partyExpired = function(party) {
-	var current = Util.stampTime();
-	if(current.day != party.day) {
-		current.hour += 24;
-	}
-	if(current.hour - party.hour >= Constant.PARTY_TIMEOUT) {
-		return true;
-	}
-	return false;
-}
