@@ -10,17 +10,17 @@ module.exports = function(party_name, callback) {
 			console.log('RESULTS: ' + results);
 			if(err) { 
 				console.log('ERR');
-				return callback(true);
+				return callback(false);
 			}else if(results && partyExpired(results.timestamp)) {
 				console.log('RESULTS + EXPIRE');
 				disposeSongs(results.timestamp);
-				return callback(true);
+				return callback(false);
 			}else if(!results) {
 				console.log('NO RESULTS');
-				return callback(true);
+				return callback(false);
 			}else {
 				console.log('ELSE');
-				return callback(false);
+				return callback(true);
 			}
 		});
 	} else {
