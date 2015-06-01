@@ -54,7 +54,10 @@ module.exports = {
 		var user_id = res.user_id,
 			auth_key = res.token;
 		//PartyModel.findOne({ 'name' : res.party }, function(err, results) {
-			if(!Disposal(res.party)) { return socket.emit('party-name-taken'); console.log('NAME TAKEN')} // if party exists
+			if(!Disposal(res.party)) { 
+				console.log('NAME TAKEN');
+				return socket.emit('party-name-taken'); 
+			} // if party exists
 			//set up request to get playlist from spotify
 			var options = {
 				url: 'https://api.spotify.com/v1/users/'+ user_id +'/playlists/' + res.list_id + '/tracks' ,
