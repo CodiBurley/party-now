@@ -9,13 +9,17 @@ module.exports = function(party_name) {
 		PartyModel.findOne(params, function(err, results) {
 			console.log('RESULTS: ' + results);
 			if(err) { 
+				console.log('ERR');
 				return console.log(err); 
-			}else if(results && partyExpired(results.timestamp) ) {
+			}else if(results && partyExpired(results.timestamp)) {
+				console.log('RESULTS + EXPIRE');
 				disposeSongs(results.timestamp);
 				return true;
 			}else if(!results) {
+				console.log('NO RESULTS');
 				return true;
 			}else {
+				console.log('ELSE');
 				return false;
 			}
 		});
