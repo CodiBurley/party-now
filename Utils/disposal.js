@@ -7,10 +7,15 @@ module.exports = function(party_name) {
 	if(party_name) {
 		var params = { 'name': party_name };
 		PartyModel.findOne(params, function(err, results) {
-			if(err) { return console.log(err); }
-			else if( partyExpired(results.timestamp) ) {
+			if(err) { 
+				return console.log(err); 
+			}else if(results && partyExpired(results.timestamp) ) {
 				disposeSongs(results.timestamp);
 				return true;
+			}else if(!results) {
+				return true;
+			}else {
+				return false;
 			}
 		});
 	} else {
@@ -23,7 +28,6 @@ module.exports = function(party_name) {
 				};
 			}
 		});
-		return false;
 	}
 }
 
