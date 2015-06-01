@@ -3,24 +3,24 @@ var Util = require('./util'),
 var PartyModel = require('../models/Party').Party,
 	SongModel = require('../models/Party').Song; 
 
-module.exports = function(party_name) {
+module.exports = function(party_name, callback) {
 	if(party_name) {
 		var params = { 'name': party_name };
 		PartyModel.findOne(params, function(err, results) {
 			console.log('RESULTS: ' + results);
 			if(err) { 
 				console.log('ERR');
-				return console.log(err); 
+				return callback(true);
 			}else if(results && partyExpired(results.timestamp)) {
 				console.log('RESULTS + EXPIRE');
 				disposeSongs(results.timestamp);
-				return true;
+				return callback(true);
 			}else if(!results) {
 				console.log('NO RESULTS');
-				return true;
+				return callback(true);
 			}else {
 				console.log('ELSE');
-				return false;
+				return callback(false);
 			}
 		});
 	} else {
