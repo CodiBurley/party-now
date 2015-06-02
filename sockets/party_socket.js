@@ -53,7 +53,6 @@ module.exports = {
 		console.log('PLAYLIST BEING REQUESTED');
 		var user_id = res.user_id,
 			auth_key = res.token;
-		//PartyModel.findOne({ 'name' : res.party }, function(err, results) {
 		Disposal(res.party, function(name_taken) {
 			if(name_taken) { 
 				console.log('NAME TAKEN');
@@ -82,7 +81,6 @@ module.exports = {
 					});
 				}else { console.log(err); }
 			});
-		//});
 		});
 	},
 
@@ -102,6 +100,7 @@ module.exports = {
 	udpateQueue: function(res) {
 		console.log('SONG UPVOTED');
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
+			Util.udpateTime(party_results);
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
 				song_results.upvotes++;
 				song_results.save();

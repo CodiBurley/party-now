@@ -5,8 +5,7 @@ var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var request = require('request');
 var bodyParser = require('body-parser');
-var Util = require('./Utils/util'),
-	Disposal = require('./Utils/disposal');
+var	Disposal = require('./Utils/disposal'),
     Constant = require('./Utils/constant');
 
 var PartyModel = require('./models/Party').Party,

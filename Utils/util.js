@@ -7,5 +7,10 @@ module.exports = {
 			month: date.getUTCMonth(),
 			year: date.getUTCFullYear()
 		}
+	},
+
+	updateTime: function(party_doc) {
+		party_doc.timestamp = this.stampTime();
+		party_doc.save();
 	}
 }
