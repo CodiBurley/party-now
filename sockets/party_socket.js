@@ -57,8 +57,8 @@ module.exports = {
 			if(name_taken) { 
 				console.log('NAME TAKEN');
 				return socket.emit('party-name-taken'); 
-			} // if party exists
-			//set up request to get playlist from spotify
+			}
+			// Set up request to get playlist from spotify
 			var options = {
 				url: 'https://api.spotify.com/v1/users/'+ user_id +'/playlists/' + res.list_id + '/tracks' ,
 				method: 'GET',
@@ -102,9 +102,11 @@ module.exports = {
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
 			Util.udpateTime(party_results);
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
-				song_results.upvotes++;
+				song_results.upvotes += res.votevalue;
+				//song_results.upvotes++;
 				song_results.save();
-				io.to(res.party).emit('client-update', song_results.URI);
+
+				io.to(res.party).emit('client-update', { URI: song_results.URI, votevalue: res.votevalue });
 				return;
 			});
 		});
