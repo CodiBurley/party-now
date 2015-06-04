@@ -100,7 +100,7 @@ module.exports = {
 	udpateQueue: function(res) {
 		console.log('SONG UPVOTED');
 		PartyModel.findOne({ 'name': res.party }, function(err, party_results) {
-			Util.udpateTime(party_results);
+			Util.updateTime(party_results);
 			SongModel.findOne({ 'URI': res.URI, 'party': party_results.id }, function(err, song_results) {
 				song_results.upvotes += res.votevalue;
 				//song_results.upvotes++;
