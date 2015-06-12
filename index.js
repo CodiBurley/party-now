@@ -19,7 +19,7 @@ var mongoURI = "mongodb://dualranger:hack2015@ds031892.mongolab.com:31892/jukebo
 	mongooseURI = uriUtil.formatMongoose(mongoURI);
 mongoose.connect(mongooseURI);
 
-// Middleware
+// MIDDLEWARE
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -27,9 +27,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var io = require('socket.io')(http);
 io.on('connection', function(socket) {
 	var party_handler = require('./sockets/party_socket.js');
-	party_handler.linkSocket(io, socket);
+	party_handler.linkSocket(io, socket); // Allows party_handler to us io and socket
 
 	console.log('SOCKET CONNECTED');
+	// Socket Event listeners
 	socket.on('playlist-request', party_handler.hostParty);
 	socket.on('guest-join', party_handler.guestJoin);
 	socket.on('queue-update', party_handler.udpateQueue);
@@ -46,7 +47,7 @@ app.post('/userauth', function(req, res, next) {
 		auth_key = req.body.token;
 	console.log("USER ID:" + user_id);
 	console.log("AUTH KEY: " + auth_key);
-	//set up request to get playlist from spotify
+	// Set up GET request
 	var _headers = {
 		'Authorization': 'Bearer ' + auth_key
 	};
@@ -55,12 +56,13 @@ app.post('/userauth', function(req, res, next) {
 		method: 'GET',
 		headers: _headers
 	};
+	// This requests the playlist information for a user with 
+	// user id: user_id and authentication key: auth_key
 	return request(options, function(err, resp, body) {
 		if(!err) {
-			console.log("TYPE: " + typeof body);
 			body = JSON.parse(body);
 			var playlists = parsePlaylists(body.items);
-			res.send(playlists); //sends array of names, ids, and img urls
+			res.send(playlists); // playlists is an array. see parsePlaylists()
 		}else {
 			console.log(err);
 		}
@@ -71,6 +73,7 @@ app.post('/userauth', function(req, res, next) {
 // Party garbage collection
 var CronJob = require('cron').CronJob;
 var job = new CronJob('*/180 * * * * *', function() {
+	// Code in here will be called after a given time, on scheduled basis
 	console.log("CLEANING UP AFTER PARTIES");
 	Disposal();
 });
@@ -82,8 +85,8 @@ http.listen(process.env.PORT || 3000, function() {
 });
 
 /*
- *function that returns array of objects containing 
- *a name and id for a playlist for each playlist
+ * Function that returns an array of objects containing: 
+ * { name, id , image_url } for each playlist in lists
  */
 var parsePlaylists = function(lists) {
 	var result = [];
